@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: studentportfolio              # Name of the deployment.
+spec:
+  replicas: 2                         # Ensure 2 replicas for high availability and load distribution.
+  revisionHistoryLimit: 2              # Store the last 2 ReplicaSets to enable easy rollbacks.
+  selector:
+    matchLabels:
+      app: studentportfolio            # Select pods with the label 'app: studentportfolio'.
+  template:
+    metadata:
+      labels:
+        app: studentportfolio          # Label the pods with 'app: studentportfolio'.
+    spec:
+      containers:
+        - name: studentportfolio
+          image: studentportfolio:latest  # Use the 'studentportfolio:latest' image.
+          ports:
+            - containerPort: 80
+              name: http                  # Expose port 80 and name it 'http'.
+          readinessProbe:
+            httpGet:
+              path: /                     # Use an httpGet probe to check the readiness of the pod.
+              port: http
+            initialDelaySeconds: 3        # Initial delay before the probe starts.
+            periodSeconds: 5              # Check every 5 seconds.
+          livenessProbe:
+            httpGet:
+              path: /                     # Use an httpGet probe to check the health of the pod.
+              port: http
+            initialDelaySeconds: 20       # Initial delay before the liveness probe starts.
+            periodSeconds: 10             # Check every 10 seconds.
+          resources:
+            requests:
+              cpu: "50m"                  # Request 50m CPU and 64Mi memory for each pod.
+              memory: "64Mi"
+            limits:
+              cpu: "200m"                 # Limit the pod to 200m CPU and 256Mi memory.
+              memory: "256Mi"

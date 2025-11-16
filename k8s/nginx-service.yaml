@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx                    # The name of the service is 'nginx'.
+  labels:
+    app: nginx                   # The service should have a label 'app: nginx'.
+spec:
+  selector:
+    app: nginx                   # The service will select pods labeled with 'app: nginx'.
+  type: NodePort                 # Expose the service using NodePort, making it accessible on each node's IP.
+  ports:
+    - name: http                 # The service's port name is 'http'.
+      port: 80                    # The service exposes port 80.
+      targetPort: http            # Traffic should be forwarded to the container's named port 'http' (which is port 80).
+      nodePort: 80                # Explicitly define the NodePort to be 80, exposing it on each node's IP.

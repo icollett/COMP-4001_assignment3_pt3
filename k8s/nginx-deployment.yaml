@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx                      # Name of the deployment.
+spec:
+  replicas: 2                       # Ensure 2 replicas for high availability.
+  revisionHistoryLimit: 2            # Retain the last 2 ReplicaSets for rollbacks.
+  selector:
+    matchLabels:
+      app: nginx                    # Select pods with the label 'app: nginx'.
+  template:
+    metadata:
+      labels:
+        app: nginx                  # Label the pods with 'app: nginx'.
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine        # Use the 'nginx:alpine' image for the container.
+          ports:
+            - containerPort: 80
+              name: http            # Expose port 80 with the name 'http'.
+          volumeMounts:
+            - name: nginx-conf      # Mount the 'nginx-conf' volume.
+              mountPath: /etc/nginx/nginx.conf  # Mount the nginx.conf at this path.
+              subPath: nginx.conf   # Ensure the file is correctly mapped.
+          readinessProbe:
+            httpGet:
+              path: /               # Use an httpGet probe to check readiness.
+              port: http
+            initialDelaySeconds: 3    # Initial delay before readiness probe starts.
+            periodSeconds: 5          # Check every 5 seconds.
+          livenessProbe:
+            httpGet:
+              path: /               # Use an httpGet probe to check health.
+              port: http
+            initialDelaySeconds: 20   # Initial delay before liveness probe starts.
+            periodSeconds: 10         # Check every 10 seconds.
+          resources:
+            requests:
+              cpu: "50m"              # Request 50m CPU and 64Mi memory.
+              memory: "64Mi"
+            limits:
+              cpu: "200m"             # Limit the pod to 200m CPU and 256Mi memory.
+              memory: "256Mi"
+      volumes:
+        - name: nginx-conf            # Define the 'nginx-conf' volume.
+          configMap:
+            name: nginx-conf          # The volume sources from the 'nginx-conf' ConfigMap.

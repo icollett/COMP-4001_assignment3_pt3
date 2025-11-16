@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: transactions              # Name of the service.
+spec:
+  type: ClusterIP                # ClusterIP type to ensure the service is internal only.
+  selector:
+    app: transactions            # The service targets pods with the label 'app: transactions'.
+  ports:
+    - port: 3000
+      targetPort: http            # The service routes traffic to the container's 'http' port.
+      name: http                  # The name of the service port is 'http', which matches the container port.

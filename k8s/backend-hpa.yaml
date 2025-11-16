@@ -1,0 +1,18 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: backend-hpa              # Name of the HPA
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1          # The API version of the target deployment
+    kind: Deployment             # The kind of the resource being scaled
+    name: backend                # The name of the target deployment to scale
+  minReplicas: 3                 # Minimum number of replicas for the backend deployment
+  maxReplicas: 10                # Maximum number of replicas for the backend deployment
+  metrics:
+    - type: Resource             # The metric type is Resource
+      resource:
+        name: cpu                # We're targeting the cpu resource
+        target:
+          type: Utilization      # The target is CPU utilization
+          averageUtilization: 70 # The target utilization is 70%

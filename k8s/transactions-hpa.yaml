@@ -1,0 +1,18 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: transactions-hpa          # Name of the HPA
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1            # The API version of the target deployment
+    kind: Deployment               # The target is a Deployment
+    name: transactions             # The name of the target deployment to scale
+  minReplicas: 2                   # Minimum number of replicas for the transactions deployment
+  maxReplicas: 8                   # Maximum number of replicas for the transactions deployment
+  metrics:
+    - type: Resource               # The metric type is Resource (i.e., CPU usage)
+      resource:
+        name: cpu                  # The resource we are monitoring is CPU usage
+        target:
+          type: Utilization        # The target is based on CPU utilization
+          averageUtilization: 70   # The target CPU utilization is 70%

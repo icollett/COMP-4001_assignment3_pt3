@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: studentportfolio              # Name of the service.
+spec:
+  type: ClusterIP                    # The service type is ClusterIP, meaning it is accessible only within the cluster.
+  selector:
+    app: studentportfolio            # The service will route traffic to pods with the label 'app: studentportfolio'.
+  ports:
+    - port: 80                       # The service exposes port 80.
+      targetPort: http                # Routes traffic to the container's 'http' port (which is 80).
+      name: http                      # The port is named 'http' to match the container port's name.
