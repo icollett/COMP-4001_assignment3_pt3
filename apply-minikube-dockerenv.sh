@@ -21,16 +21,7 @@ docker images
 
 # Apply Kubernetes manifests from the k8s directory
 echo "Applying Kubernetes manifests from the k8s directory..."
-kubectl apply -f $K8S_DIR/mongo-service.yaml
-kubectl apply -f $K8S_DIR/mongo-statefulset.yaml
-kubectl apply -f $K8S_DIR/backend-deployment.yaml
-kubectl apply -f $K8S_DIR/backend-service.yaml
-kubectl apply -f $K8S_DIR/transactions-deployment.yaml
-kubectl apply -f $K8S_DIR/transactions-service.yaml
-kubectl apply -f $K8S_DIR/studentportfolio-deployment.yaml
-kubectl apply -f $K8S_DIR/studentportfolio-service.yaml
-kubectl apply -f $K8S_DIR/nginx-deployment.yaml
-kubectl apply -f $K8S_DIR/nginx-service.yaml
+kubectl apply -f ./k8s/  # Apply all YAML files in the 'k8s' directory
 
 # Restart deployments to pick up the newly built images
 echo "Restarting deployments to pick up the newly built images..."
