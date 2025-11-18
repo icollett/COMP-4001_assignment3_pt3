@@ -144,6 +144,7 @@ curl http://localhost:5000
 
 docker image ls
 
+docker ps --filter "ancestor=nginx:alpine"
 NGINX_ID=$(docker ps -q --filter "ancestor=nginx:alpine")
 
 if [ -n "$NGINX_ID" ]; then
