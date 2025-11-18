@@ -26,7 +26,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: backend-secret
-                  key: secret-key
+                  key: SECRET_KEY
           readinessProbe:
             httpGet:
               path: /
