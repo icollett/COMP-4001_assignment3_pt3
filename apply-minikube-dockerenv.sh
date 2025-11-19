@@ -25,10 +25,10 @@ kubectl apply -f ./k8s/  # Apply all YAML files in the 'k8s' directory
 
 # Restart deployments to pick up the newly built images
 echo "Restarting deployments to pick up the newly built images..."
-kubectl rollout restart deployment/nginx
 kubectl rollout restart deployment/backend
 kubectl rollout restart deployment/transactions
 kubectl rollout restart deployment/studentportfolio
+kubectl rollout restart deployment/nginx
 
 # Wait for pods to be created
 echo "Waiting for the pods to be created..."
