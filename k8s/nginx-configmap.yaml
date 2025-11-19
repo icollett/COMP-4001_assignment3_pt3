@@ -18,7 +18,10 @@ data:
         sendfile      on;
 
         upstream backend {
-            server backend:5000;
+            server transactions:3000;
+        }
+
+        upstream transactions {
             server transactions:3000;
         }
 
