@@ -142,9 +142,9 @@ sleep 2s
 curl http://localhost:3000
 curl http://localhost:5000
 
-docker image ls
 sleep 1s
-NGINX_ID=$(docker ps -q --filter "ancestor=nginx:alpine")
+
+NGINX_ID=$(docker ps -q --filter "ancestor=nginx:alpine" | head -n 1)
 
 if [ -n "$NGINX_ID" ]; then
     echo "The nginx container is: $NGINX_ID"
