@@ -6,7 +6,7 @@ DOCKER_IMAGE_TAG=latest  # You can change the image tag here if needed
 K8S_DIR="./k8s"  # Path to the directory containing your Kubernetes manifests
 
 # Force Docker to use Minikube's Docker daemon
-eval $(minikube -p minikube docker-env)
+eval $(minikube docker-env)
 
 # Build Docker images in Minikube's Docker daemon
 echo "Building Docker images inside Minikube's Docker daemon..."
@@ -33,10 +33,3 @@ kubectl rollout restart deployment/studentportfolio
 # Wait for pods to be created
 echo "Waiting for the pods to be created..."
 kubectl get pods --watch &
-
-# Expose Nginx service with minikube
-echo "Launching the application with minikube service nginx..."
-minikube service nginx
-
-# Stop the watch command (optional)
-wait
