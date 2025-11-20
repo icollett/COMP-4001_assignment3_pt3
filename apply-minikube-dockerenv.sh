@@ -33,6 +33,6 @@ kubectl rollout restart deployment/nginx
 
 # Wait for pods to be created
 echo "Waiting for the pods to be created..."
-kubectl get pods --watch &
+kubectl get pods --watch
 
-wait
+minikube service nginx
