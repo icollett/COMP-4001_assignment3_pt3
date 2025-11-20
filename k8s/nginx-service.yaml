@@ -13,3 +13,4 @@ spec:
       port: 80                    # The service exposes port 80.
       targetPort: http            # Traffic should be forwarded to the container's named port 'http' (which is port 80).
       nodePort: 30080                # Explicitly define the NodePort to be 80, exposing it on each node's IP.
+  type: LoadBalancer  # Expose via load balancer
