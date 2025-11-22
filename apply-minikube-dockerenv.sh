@@ -15,6 +15,7 @@ echo "Building Docker images inside Minikube's Docker daemon..."
 docker build -t backend:$DOCKER_IMAGE_TAG ./backend
 docker build -t transactions:$DOCKER_IMAGE_TAG ./transactions
 docker build -t studentportfolio:$DOCKER_IMAGE_TAG ./studentportfolio
+docker build -t nginx:$DOCKER_IMAGE_TAG .
 
 # Verify that images are built inside Minikube's Docker daemon
 echo "Verifying the images in Minikube's Docker daemon..."
@@ -30,6 +31,9 @@ kubectl rollout restart deployment.apps
 
 # Wait for pods to be created
 echo "Waiting for the pods to be created..."
-kubectl get pods --wait
+kubectl get pods
+
+echo "Pausing for containers to ready up."
+sleep 5
 
 minikube service nginx
