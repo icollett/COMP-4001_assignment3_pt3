@@ -124,7 +124,7 @@ fi
 cd ~
 
 DIR="COMP-4001_assignment3_pt3"
-if [ ! -d "$DIR" ]; then
+if [[ ! -d $DIR ]]; then
     git clone https://github.com/icollett/COMP-4001_assignment3_pt3.git
 else
     echo "Project directory already exists."

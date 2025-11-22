@@ -16,10 +16,10 @@ spec:
       containers:
         - name: backend
           image: backend:latest
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 5000
-              name: http
+            - name: http
+              containerPort: 5000
           env:
             - name: MONGO_URI
               value: "mongodb://mongo:27017/bank_app"
@@ -27,7 +27,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: backend-secret
-                  key: SECRET_KEY
+                  key: secret-key
           readinessProbe:
             httpGet:
               path: /
