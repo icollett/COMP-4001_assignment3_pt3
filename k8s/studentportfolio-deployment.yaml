@@ -16,7 +16,7 @@ spec:
       containers:
         - name: studentportfolio
           image: studentportfolio:latest  # Use the 'studentportfolio:latest' image.
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
               name: http                  # Expose port 80 and name it 'http'.

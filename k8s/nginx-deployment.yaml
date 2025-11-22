@@ -16,6 +16,7 @@ spec:
       containers:
         - name: nginx
           image: nginx:alpine        # Use the 'nginx:alpine' image for the container.
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
               name: http            # Expose port 80 with the name 'http'.
@@ -46,3 +47,6 @@ spec:
         - name: nginx-conf            # Define the 'nginx-conf' volume.
           configMap:
             name: nginx-conf          # The volume sources from the 'nginx-conf' ConfigMap.
+            items:
+              - key: nginx.conf
+                path: nginx.conf
